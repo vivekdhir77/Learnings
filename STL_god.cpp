@@ -116,6 +116,12 @@ void problem()
     int point = 50;
 
     auto it = s.upper_bound({point, INT_MAX});
+
+    if(it == s.begin())
+    {
+        cout<<"The given point is not lying in an interval..\n";
+        return;
+    }
     it--;
 
     pair<int, int> current  = *it;
