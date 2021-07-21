@@ -1,5 +1,5 @@
-#include <iostream>
-#include <cstdlib>
+#include <stdio.h>
+#include <stdlib.h>
 
 struct node
 {
@@ -122,6 +122,47 @@ void insert(struct node* root, int key){
     }
 }
 
+struct node* inOrderPredecessor(struct node* root){
+    root = root->left;
+    while(root->right != NULL){
+        root = root ->right;
+    }
+    return root;
+}
+
+
+struct node* deleteNode(struct node* root, int value){
+
+    struct node* iPre;
+    
+
+    // base condition
+    if(root==NULL){
+        return NULL;
+    }
+    if(root->left == NULL && root->right == NULL){
+        free(root);
+        return NULL;
+    }
+
+
+    // search for the node to be deleted
+    if(value< root->data){
+        root->left = deleteNode( root ->left, value);
+    }
+    else if(value> root->data){
+        root->right = deleteNode( root ->right, value);
+    }
+    
+    //deletion strategy: When the node is found
+    else{
+        iPre = inOrderPredecessor(root);
+        root->data = iPre->data;
+        root->left = deleteNode(root->left, iPre->data);
+    }
+    return root;
+}
+
 int main()
 {
 
@@ -150,6 +191,12 @@ int main()
 //    inOrder(p);
 //    printf("\n%d",isBST(p));
 
-   insert(p,16);
-   printf("%d",p->right->right->data);
+//    insert(p,16);
+//    printf("%d",p->right->right->data);
+
+    inOrder(p);
+    deleteNode(p,5);
+    printf("\n");
+    inOrder(p);
+
 }
