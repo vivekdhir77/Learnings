@@ -98,39 +98,36 @@ int isBST(struct node* root)
     }
 }
 
+void insert(struct node* root, int key){
+    struct node* prev = NULL;
+    while(root!= NULL){
+        prev = root;
+        if(key == root->data){
+            printf("cannot insert  %d, already in BST",key);
+            return;
+        }
+        else if(key<root->data){
+            root = root->left;
+        }
+        else{
+            root = root->right;
+        }
+    }
+    struct node* link = createNode(key);
+    if(key<prev->data){
+        prev->left =link;
+    }
+    else{
+        prev->right =link;
+    }
+}
 
 int main()
 {
-    /*
-    struct node *p;
-    p = (struct node *)malloc(sizeof(struct node));
-    p->data =2;
-    p->left = NULL;
-    p->right = NULL;
-
-
-    struct node *p1;
-    p1 = (struct node *)malloc(sizeof(struct node));
-    p->data  =1;
-    p1->left = NULL;
-    p1->right = NULL;
-
-    struct node *p2;
-    p2 = (struct node *)malloc(sizeof(struct node));
-    p->data  = 2;
-    p2->left = NULL;
-    p2->right = NULL;
-
-// linking the root node
-    p->left = p1;
-    p->right = p2;
-    */
-
-//    constructing root node using functions
 
    struct node* p= createNode(5);
    struct node* p1= createNode(3);
-   struct node* p2= createNode(2);
+   struct node* p2= createNode(6);
    struct node* p3= createNode(1);
    struct node* p4= createNode(4);
 
@@ -146,10 +143,13 @@ int main()
      / \
     1   4
     */
-   preOrder(p);
-   printf("\n");
-   postOrder(p);
-   printf("\n");
-   inOrder(p);
-   printf("\n%d",isBST(p));
+//    preOrder(p);
+//    printf("\n");
+//    postOrder(p);
+//    printf("\n");
+//    inOrder(p);
+//    printf("\n%d",isBST(p));
+
+   insert(p,16);
+   printf("%d",p->right->right->data);
 }
